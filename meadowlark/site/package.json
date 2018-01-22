@@ -1,0 +1,22 @@
+{
+  "name": "meadowlark",
+  "version": "1.0.0",
+  "description": "tutorial",
+  "main": "meadowlark.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oldmannt/learnNodeJS.git"
+  },
+  "author": "li",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/oldmannt/learnNodeJS/issues"
+  },
+  "homepage": "https://github.com/oldmannt/learnNodeJS#readme",
+  "dependencies": {
+    "express": "^4.16.2"
+  }
+}
