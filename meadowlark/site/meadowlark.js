@@ -9,6 +9,11 @@ var app = express();
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
 app.use(express.static(__dirname + '/public'));
+app.use(function(req, res, next){
+	res.locals.showTests = app.get('env') !== 'production'
+	&& req.query.test === '1';
+	next();
+})
 app.set('port', process.env.PORT || 3000);
 
 app.get('/', function(reg, res){
@@ -20,7 +25,10 @@ app.get('/', function(reg, res){
 app.get('/about', function(reg, res){
 	//res.type('text/plain');
 	//res.send('About Meadowlark Travel');
-	res.render('about', {fortune: fortune.getFortune()});
+	res.render('about', {
+		fortune: fortune.getFortune(),
+		pageTestScript: '/qa/tests-about.js'
+	});
 })
 
 app.get('/about/contact', function(reg, res){
