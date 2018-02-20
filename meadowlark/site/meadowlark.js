@@ -6,6 +6,7 @@ var handlebars = require('express-handlebars')
 		.create({defaultLayout:'main'});
 
 var app = express();
+app.disable('x-powered-by');
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
 app.use(express.static(__dirname + '/public'));
@@ -15,6 +16,19 @@ app.use(function(req, res, next){
 	next();
 });
 app.set('port', process.env.PORT || 3000);
+
+app.get('/headers', function( req, res){
+	res.set('Content-Type','text/plain');
+	var s = '';
+	for( var name in req.headers)
+		s += name + ': ' + req.headers[ name] + '\ n';
+	res.send( s);
+});
+
+app.get('/test', function(req, res){
+	res.type('text/plain');
+	res.send('this is a test');
+});
 
 app.get('/', function(reg, res){
 	//res.type('text/plain');
@@ -52,6 +66,19 @@ app.get('/tours/hood-river', function(req, res){
 
 app.get('/tours/request-group-rate', function(req, res){
 	res.render('tours/request-group-rate');
+});
+
+app.get('/greeting', function(req, res){
+	res.render('about', {
+		message: 'welcome',
+		style: req.query.style,
+		//userid: req.cookie.userid,
+		//username: req.session.username,
+	});
+});
+
+app.get('/no-layout', function(req, res){
+	res.render('no-layout', {layout: null});
 });
 
 // custom 404 page 
