@@ -40,17 +40,17 @@ function getWeatherData(){
                 iconUrl: 'http://icons-ak.wxug.com/i/c/k/rain.gif',
                 weather: 'Light Rain',
                 temp: '55.0 F (12.8 C)',
-            }
-        ]
+            },
+        ],
     };
 }
 
 // middleware to add weather data to context
 app.use(function(req, res, next){
 	if(!res.locals.partials) res.locals.partials = {};
-	res.locals.partials.weatherContext = getWeatherData();
-	next();
-})
+ 	res.locals.partials.weatherContext = getWeatherData();
+ 	next();
+});
 
 app.set('port', process.env.PORT || 3000);
 
