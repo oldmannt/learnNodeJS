@@ -3,7 +3,15 @@ var fortune = require('./lib/fortune.js');
 
 // set up handlebars view engine
 var handlebars = require('express-handlebars')
-		.create({defaultLayout:'main'});
+		.create({defaultLayout:'main',
+		helpers:{
+			section: function(name, options){
+				if(!this._sections) this._sections = {};
+				this._sections[name] = options.fn(this);
+				return null;
+			}
+		}
+	});
 
 var app = express();
 app.disable('x-powered-by');
@@ -116,6 +124,10 @@ app.get('/greeting', function(req, res){
 
 app.get('/no-layout', function(req, res){
 	res.render('no-layout', {layout: null});
+});
+
+app.get('/jquery-test', function(req, res){
+	res.render('jquery-test');
 });
 
 // custom 404 page 
