@@ -16,7 +16,11 @@
     <div class="form-group">
         <label for="fieldPhoto" class="col-sm-2 control-label">Vacation photo</label>
         <div class="col-sm-4">
-            <input type="file" class="form-control" required accept="image/*" id="fieldPhoto" name="photo">
+            <span class="btn btn-default btn-file">
+                <input type="file" class="form-control" 
+                    required accept="image/*" id="fieldPhoto" name="photo">
+            </span>
+            <div id="uploads"></div>
         </div>
     </div>
     <div class="form-group">
@@ -25,3 +29,24 @@
         </div>
     </div>
 </form>
+{{#section 'jquery'}}
+    <script src="/vendor/jqfu/js/vendor/jquery.ui.widget.js"></script>
+    <script src="/vendor/jqfu/js/jquery.iframe-transport.js"></script>
+	<script src="/vendor/jqfu/js/jquery.fileupload.js"></script>
+    <script>
+        <script>
+		$(document).ready(function(){
+			$('#fieldPhoto').fileupload({
+				dataType: 'json',
+				done: function(e, data){
+					$.each(data.result.files, function(index, file){
+						$('#fileUploads').append($('<div class="upload">' +
+							'<span class="glyphicon glyphicon-ok"></span>&nbsp;' +
+							file.originalName + '</div>'));
+					});
+				}
+			});
+
+		});
+    </script>
+{{/section}}

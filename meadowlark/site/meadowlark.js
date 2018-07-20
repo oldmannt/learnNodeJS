@@ -116,6 +116,10 @@ app.get('/tours/request-group-rate', function(req, res){
 	res.render('tours/request-group-rate');
 });
 
+app.get('/thank-you', function(req, res){
+	res.render('thank-you');
+});
+
 app.get('/greeting', function(req, res){
 	res.render('about', {
 		message: 'welcome',
@@ -189,6 +193,20 @@ app.post('/contest/vacation-photo/:year/:month', function(req, res){
 		console.log(files);
 		res.redirect(303, '/thank-you');
 	});
+});
+
+// jquery file upload
+var jqupload = require('jquery-file-upload-middleware')
+app.use('/upload', function(req, res, next){
+	var now = Date.now();
+	jqupload.fileHandler({
+		uploadDir: function(){
+			return __dirname + '/public/uploads/' + now;
+		},
+		uploadUrl: function(){
+			return '/uploads/' + now;
+		},
+	})(req, res, next);
 });
 
 // custom 404 page 
