@@ -60,3 +60,6 @@ typings/
 # visual code
 .vscode
 
+#cookie
+credentials.js
+
